@@ -1,11 +1,23 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ArrowLeft, Camera, Timer } from "lucide-react";
 import type { FrameId } from "./FrameSelectScreen";
+import frameFreshman from "@/assets/frame-freshman.png";
+import frameK71 from "@/assets/frame-k71.png";
+import frameBronzeDrum from "@/assets/frame-bronze-drum.png";
+import frameNew from "@/assets/IMG_4734.png"; // 👈 khung mới
+
+const frameMap = {
+  freshman: frameFreshman,
+  k71: frameK71,
+  "bronze-drum": frameBronzeDrum,
+  new: frameNew, // 👈 thêm dòng này
+};
 
 export const FRAME_SLOT_COUNT: Record<FrameId, number> = {
   freshman: 3,
   k71: 4,
   "bronze-drum": 4,
+  new: 1,
 };
 
 interface CameraScreenProps {
@@ -46,22 +58,31 @@ const CameraScreen = ({ frameId, currentSlot, totalSlots, onCapture, onBack }: C
     };
   }, []);
 
-  const capturePhoto = useCallback(() => {
-    if (!videoRef.current || !canvasRef.current) return;
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-    ctx.drawImage(video, 0, 0);
-    setShowFlash(true);
-    setTimeout(() => setShowFlash(false), 500);
-    const dataUrl = canvas.toDataURL("image/png");
-    onCapture(dataUrl);
-  }, [onCapture]);
+// CameraScreen.tsx
+const capturePhoto = useCallback(() => {
+  if (!videoRef.current || !canvasRef.current) return;
+  const video = videoRef.current;
+  const canvas = canvasRef.current;
+  
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  // Lật ngược canvas để ảnh không bị ngược chữ
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  
+  // CHỈ vẽ video vào canvas, TUYỆT ĐỐI không vẽ frame ở đây
+  ctx.drawImage(video, 0, 0);
+
+  setShowFlash(true);
+  setTimeout(() => setShowFlash(false), 500);
+
+  // Xuất ảnh thô
+  const dataUrl = canvas.toDataURL("image/png");
+  onCapture(dataUrl); // Lúc này dataUrl là ảnh sạch, chưa có khung
+}, [onCapture]);
 
   const handleInstantCapture = () => {
     if (countdown !== null) return;
