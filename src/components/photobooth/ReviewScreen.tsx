@@ -4,11 +4,13 @@ import frameK71 from "@/assets/frame-k71.png";
 import frameBronzeDrum from "@/assets/frame-bronze-drum.png";
 import type { FrameId } from "./FrameSelectScreen";
 import { useRef, useEffect, useState } from "react";
+import frameNew from "@/assets/IMG_4734.png";
 
 const frameImages: Record<FrameId, string> = {
   freshman: frameFreshman,
   k71: frameK71,
   "bronze-drum": frameBronzeDrum,
+  new: frameNew,
 };
 
 type SlotRect = { x: number; y: number; w: number; h: number };
@@ -207,6 +209,7 @@ const SLOT_COUNTS: Record<FrameId, number> = {
   freshman: 3,
   k71: 4,
   "bronze-drum": 4,
+  new: 1,
 };
 // Định nghĩa tọa độ chính xác cho từng khung hình
 // MẸO: Tọa độ (w, h) được làm to ra một chút để ảnh "chui" xuống dưới viền khung, che đi các khoảng hở.
@@ -238,6 +241,14 @@ const FRAME_LAYOUTS: Record<FrameId, SlotRect[]> = {
     { x: 0.05, y: 0.58, w: 0.90, h: 0.20 },
     // Ô 4 (Dưới cùng)
     { x: 0.05, y: 0.77, w: 0.90, h: 0.20 },
+  ],
+new: [
+    {
+      x: 0.125, // Tăng nhẹ để đẩy ảnh sang phải
+      y: 0.12,  // Tăng để đẩy ảnh xuống dưới một chút, khớp với ô trắng
+      w: 0.75,  // Giữ nguyên hoặc điều chỉnh nhẹ cho vừa chiều ngang
+      h: 0.38,  // Giảm nhẹ chiều cao để không đè lên phần lịch phía dưới
+    },
   ],
 };
 
