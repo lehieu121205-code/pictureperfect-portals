@@ -2,8 +2,9 @@ import { ArrowLeft } from "lucide-react";
 import frameFreshman from "@/assets/frame-freshman.png";
 import frameK71 from "@/assets/frame-k71.png";
 import frameBronzeDrum from "@/assets/frame-bronze-drum.png";
+import frameNew from "@/assets/IMG_4734.png";
 
-export type FrameId = "freshman" | "k71" | "bronze-drum";
+export type FrameId = "freshman" | "k71" | "bronze-drum" | "new";
 
 interface Frame {
   id: FrameId;
@@ -16,6 +17,9 @@ const frames: Frame[] = [
   { id: "freshman", name: "Tân Sinh Viên", description: "Chủ đề chào đón tân sinh viên", image: frameFreshman },
   { id: "k71", name: "Nhà Ấm K71", description: "Khung kỷ niệm K71", image: frameK71 },
   { id: "bronze-drum", name: "VNU – USSH", description: "Khung trống đồng – văn hóa Việt", image: frameBronzeDrum },
+
+  // 👇 THÊM MỚI
+  { id: "new", name: "Lịch 2027", description: "Khung lịch mới", image: frameNew },
 ];
 
 interface FrameSelectScreenProps {
@@ -40,7 +44,7 @@ const FrameSelectScreen = ({ onSelect, onBack }: FrameSelectScreenProps) => {
       <p className="text-center text-muted-foreground mb-8">Chọn một khung ảnh bạn thích</p>
 
       <div className="flex-1 flex items-center justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl w-full">
           {frames.map((frame) => (
             <button
               key={frame.id}
