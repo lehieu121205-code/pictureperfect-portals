@@ -244,10 +244,10 @@ const FRAME_LAYOUTS: Record<FrameId, SlotRect[]> = {
   ],
 new: [
     {
-      x: 0.125, // Tăng nhẹ để đẩy ảnh sang phải
-      y: 0.12,  // Tăng để đẩy ảnh xuống dưới một chút, khớp với ô trắng
-      w: 0.75,  // Giữ nguyên hoặc điều chỉnh nhẹ cho vừa chiều ngang
-      h: 0.38,  // Giảm nhẹ chiều cao để không đè lên phần lịch phía dưới
+      x: 0.005, // Dịch sang trái nhiều hơn để lấp viền trắng bên trái
+      y: 0.17, // Dịch lên trên một chút để lấp viền trên
+      w: 0.99, // Kéo rộng chiều ngang ra để lấp viền trắng bên phải
+      h: 0.36, // Kéo dài chiều cao xuống để lấp viền trắng phía dưới
     },
   ],
 };
